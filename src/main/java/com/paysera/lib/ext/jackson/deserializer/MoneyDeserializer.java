@@ -16,6 +16,9 @@ import java.math.RoundingMode;
 public class MoneyDeserializer extends JsonDeserializer<Money> {
     private RoundingMode roundingMode;
 
+    public MoneyDeserializer() {
+    }
+
     public MoneyDeserializer(RoundingMode roundingMode) {
         this.roundingMode = roundingMode;
     }
@@ -30,10 +33,17 @@ public class MoneyDeserializer extends JsonDeserializer<Money> {
         String currency = node.get("currency").asText();
         String amount = node.get("amount").asText();
 
+        if (this.roundingMode != null) {
+            return Money.of(
+                CurrencyUnit.of(currency),
+                new BigDecimal(amount),
+                this.roundingMode
+            );
+        }
+
         return Money.of(
             CurrencyUnit.of(currency),
-            new BigDecimal(amount),
-            this.roundingMode
+            new BigDecimal(amount)
         );
     }
 }
