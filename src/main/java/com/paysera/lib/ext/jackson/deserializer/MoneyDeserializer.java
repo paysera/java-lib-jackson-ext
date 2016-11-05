@@ -17,6 +17,7 @@ public class MoneyDeserializer extends JsonDeserializer<Money> {
     private RoundingMode roundingMode;
 
     public MoneyDeserializer() {
+        this.roundingMode = RoundingMode.HALF_UP;
     }
 
     public MoneyDeserializer(RoundingMode roundingMode) {
