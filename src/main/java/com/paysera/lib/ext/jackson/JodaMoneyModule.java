@@ -3,6 +3,7 @@ package com.paysera.lib.ext.jackson;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.paysera.lib.ext.jackson.deserializer.MoneyDeserializer;
+import com.paysera.lib.ext.jackson.serializer.BigMoneySerializer;
 import com.paysera.lib.ext.jackson.serializer.MoneySerializer;
 
 import org.joda.money.BigMoney;
@@ -27,6 +28,7 @@ public class JodaMoneyModule extends SimpleModule {
     public void setupModule(SetupContext context) {
         this.addDeserializer(Money.class, new MoneyDeserializer(this.moneyDeserializationRoundingMode));
         this.addSerializer(Money.class, new MoneySerializer());
+        this.addSerializer(BigMoney.class, new BigMoneySerializer());
 
         context.addDeserializers(this._deserializers);
         context.addSerializers(this._serializers);
